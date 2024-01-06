@@ -17,6 +17,10 @@ fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=
     })
     .then(function (data) {
         console.log(data);
+        for (let i = 0; i < data.length; i++) {
+        console.log(data[i].lat);
+        console.log(data[i].lon);
+        }
     })
 })
 
