@@ -2,10 +2,10 @@
 
 let cityName = $("#city");
 let submitBtn = $("#searchBtn");
+let history = $("#history");
 
 //=============================== Global Variables ===================================//
 
-let cities = [];
 
 //================================ Main function ====================================//
 
@@ -36,18 +36,34 @@ const forecast = async () => {
     console.log(result);
   }
 
+
+  const displayCities = () => {
+    history.empty();
+    let storedCities = JSON.parse(localStorage.getItem('cities'));
+    if(storedCities) {
+        storedCities.forEach((element) => {
+            let listCities = $(`<button type="button" class="btn btn-secondary mt-1"> ${element} </button>`);
+            history.append(listCities)
+        });
+        
+    }
+console.log("displayCities line 50: "+storedCities);
+
+  }
+
 //========== Add To Recent Searches function =========//
 
 const addToRecentSearches = () => {
-    if (cities.length > 3) {
-        cities.pop();
+    let addToStoredCities = JSON.parse(localStorage.getItem('cities'));
+    if (addToStoredCities.length > 3) {
+        addToStoredCities.pop();
     }
 
-    cities.unshift(cityName.val());
-    localStorage.setItem('cities', JSON.stringify(cities));
-}
+    addToStoredCities.unshift(cityName.val());
+    localStorage.setItem('cities', JSON.stringify(addToStoredCities));
+    displayCities();
 
-// End - addToRecentSearches //
+} // END - addToRecentSearches //
 
 
 submitBtn.on("click", function (event) {
@@ -55,6 +71,8 @@ submitBtn.on("click", function (event) {
       forecast();
       addToRecentSearches()
 });
+
+displayCities();
 
 /* 
 create function to get the lat and long from city with weather API
