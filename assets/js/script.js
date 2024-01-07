@@ -5,22 +5,30 @@ let submitBtn = $("#searchBtn");
 
 //================================ Main function ====================================//
 
-async function getGeoCode() {
-    let coordinates =[];
+const getGeoCodeAndForecast = async () => {
 
-    let response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName.val().trim()}&limit=1&appid=28a50b02ae4b700f3cf73b5f494e201a`);
+    let geoResponse = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName.val().trim()}&limit=1&appid=28a50b02ae4b700f3cf73b5f494e201a`);
 
-    let data = await response.json();
-        let lat = data[0].lat;
-        let lon = data[0].lon;
+    let geoData = await geoResponse.json();
+        let lat = geoData[0].lat;
+        let lon = geoData[0].lon;
 
-        coordinates.push(lat,lon)
+    let weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=28a50b02ae4b700f3cf73b5f494e201a`);
+    let weatherData = await weatherResponse.json();
 
-    return coordinates
-} // END - getGeoCode //
+    console.log(weatherData)
 
-const todayForecast = async () => {
-    const result = await getGeoCode()
+    let fiveDayResponse = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=28a50b02ae4b700f3cf73b5f494e201a`);
+
+    let fiveDayData = await fiveDayResponse.json();
+
+    console.log(fiveDayData.list);
+
+        
+} // END - getGeoCodeAndForecast //
+
+const forecast = async () => {
+    const result = await getGeoCodeAndForecast()
     console.log(result);
   }
 
@@ -28,7 +36,7 @@ const todayForecast = async () => {
 
 submitBtn.on("click", function (event) {
     event.preventDefault();
-      todayForecast();
+      forecast();
 });
 
 /* 
