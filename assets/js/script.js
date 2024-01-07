@@ -32,7 +32,7 @@ const getGeoCodeAndForecast = async (aCity) => {
 } // END - getGeoCodeAndForecast //
 
 const forecast = async () => {
-    const result = await getGeoCodeAndForecast(cityName)
+    const result = await getGeoCodeAndForecast(cityName.val())
     console.log(result);
   }
 
@@ -46,7 +46,7 @@ const forecast = async () => {
             let listCities = $(`<button type="button" class="btn btn-secondary mt-1"> ${city} </button>`);
             listCities.on("click", () => {
                 getGeoCodeAndForecast(city)
-                console.log(city);
+                console.log("recent searched - "+city);
             })
             history.append(listCities)
         });
