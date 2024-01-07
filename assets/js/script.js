@@ -5,36 +5,30 @@ let submitBtn = $("#searchBtn");
 
 //================================ Main function ====================================//
 
-function getGeoCode() {
+async function getGeoCode() {
+    let coordinates =[];
 
-    if (cityName !== "") {
-        
-        fetch(
-            `http://api.openweathermap.org/geo/1.0/direct?q=${cityName.val().trim()}&limit=1&appid=28a50b02ae4b700f3cf73b5f494e201a`
-        )
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                console.log(data);
-                for (let i = 0; i < data.length; i++) {
-                    console.log(data[i].lat);
-                    console.log(data[i].lon);
-                }
-            });
-        } 
+    let response = await fetch(`http://api.openweathermap.org/geo/1.0/direct?q=${cityName.val().trim()}&limit=1&appid=28a50b02ae4b700f3cf73b5f494e201a`);
+
+    let data = await response.json();
+        let lat = data[0].lat;
+        let lon = data[0].lon;
+
+        coordinates.push(lat,lon)
+
+    return coordinates
 } // END - getGeoCode //
 
-
-
+const todayForecast = async () => {
+    const result = await getGeoCode()
+    console.log(result);
+  }
 
 // function to get geocoding API
 
 submitBtn.on("click", function (event) {
     event.preventDefault();
-
-    getGeoCode();
-    
+      todayForecast();
 });
 
 /* 
