@@ -3,6 +3,10 @@
 let cityName = $("#city");
 let submitBtn = $("#searchBtn");
 
+//=============================== Global Variables ===================================//
+
+let cities = [];
+
 //================================ Main function ====================================//
 
 const getGeoCodeAndForecast = async () => {
@@ -32,11 +36,24 @@ const forecast = async () => {
     console.log(result);
   }
 
-// function to get geocoding API
+//========== Add To Recent Searches function =========//
+
+const addToRecentSearches = () => {
+    if (cities.length > 3) {
+        cities.pop();
+    }
+
+    cities.unshift(cityName.val());
+    localStorage.setItem('cities', JSON.stringify(cities));
+}
+
+// End - addToRecentSearches //
+
 
 submitBtn.on("click", function (event) {
     event.preventDefault();
       forecast();
+      addToRecentSearches()
 });
 
 /* 
