@@ -3,7 +3,7 @@
 let citySearch = $("#citySearch");
 let submitBtn = $("#searchBtn");
 let history = $("#history");
-let nameOfCity = $("#nameOfCity")
+let nameOfCity = $("#nameOfCity");
 let todayTemp = $("#temp");
 let todayWind = $("#wind");
 let todayHumidity = $("#humidity");
@@ -11,7 +11,6 @@ let todayHumidity = $("#humidity");
 //=============================== Global Variables ===================================//
 
 //================================ Main function ====================================//
-
 const getData = async (city) => {
     const coordinates = await getGeoCode(city);
     forecast(coordinates);
@@ -33,33 +32,46 @@ const getGeoCode = async (aCity) => {
 };
 // END - getGeoCode //
 
+//========== Get today's weather and append it page =========//
 const forecast = async (coordinates) => {
     let weatherResponse = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates[0]}&lon=${coordinates[1]}&appid=28a50b02ae4b700f3cf73b5f494e201a`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates[0]}&lon=${coordinates[1]}&units=imperial&appid=28a50b02ae4b700f3cf73b5f494e201a`
     );
     let weatherData = await weatherResponse.json();
 
-    nameOfCity.text(weatherData.name);
-    todayTemp.text(weatherData.main.temp);
-    todayWind.text(weatherData.wind.speed);
-    todayHumidity.text(weatherData.main.humidity);
+    nameOfCity.text(weatherData.name + ' ' + weatherData.weather[0].icon);
+    todayTemp.text("Temp: " + weatherData.main.temp);
+    todayWind.text("Wind: " + weatherData.wind.speed);
+    todayHumidity.text("Humidity: " + weatherData.main.humidity);
 
     console.log(weatherData);
-};
 
+    console.log(weatherData.weather.icon); // TODO: remove this at the end
+};
+// END - forecast
+
+//========== Get 5 day forecast and append it page =========//
 const fiveDay = async (coordinates) => {
     let fiveDayResponse = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates[0]}&lon=${coordinates[1]}&appid=28a50b02ae4b700f3cf73b5f494e201a`
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates[0]}&lon=${coordinates[1]}&units=imperial&appid=28a50b02ae4b700f3cf73b5f494e201a`
     );
 
     let fiveDayData = await fiveDayResponse.json();
 
-    console.log(fiveDayData);
+    let changeToSomethingElse = [];
+
+    fiveDayData.list.forEach((list) =>{
+        changeToSomethingElse.push(list.main.temp);
+    })
+
+console.log(fiveDayData);
+    console.log(changeToSomethingElse); // TODO: remove this at the end
 };
+// END - fiveDay
 
 //========== Display Cities on page function  =========//
-
 const displayCities = () => {
+
     // Clears the previous buttons before calling localStorage to re-add them
     history.empty();
 
@@ -72,7 +84,7 @@ const displayCities = () => {
             );
             listCities.on("click", () => {
                 getData(city);
-                console.log("recent searched - " + city);
+                console.log("recent searched - " + city); // TODO: remove this at the end
             });
             history.append(listCities);
         });
@@ -81,7 +93,6 @@ const displayCities = () => {
 // END - displayCities
 
 //========== Add To Recent Searches function =========//
-
 const addToRecentSearches = () => {
     let addToStoredCities = JSON.parse(localStorage.getItem("cities"));
     if (!Array.isArray(addToStoredCities)) {
@@ -96,8 +107,7 @@ const addToRecentSearches = () => {
 };
 // END - addToRecentSearches //
 
-// ===== Handler ===== //
-
+//===== Handler =====//
 submitBtn.on("click", function (event) {
     event.preventDefault();
     // Get the value from the input section from html
