@@ -7,6 +7,7 @@ let nameOfCity = $("#nameOfCity");
 let todayTemp = $("#temp");
 let todayWind = $("#wind");
 let todayHumidity = $("#humidity");
+let weatherIcon = $("#weatherIcon")
 
 //=============================== Global Variables ===================================//
 
@@ -39,7 +40,9 @@ const forecast = async (coordinates) => {
     );
     let weatherData = await weatherResponse.json();
 
-    nameOfCity.text(weatherData.name + ' ' + weatherData.weather[0].icon);
+    nameOfCity.text(weatherData.name);
+    let icon = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`;
+    weatherIcon.attr("src", icon);
     todayTemp.text("Temp: " + weatherData.main.temp);
     todayWind.text("Wind: " + weatherData.wind.speed);
     todayHumidity.text("Humidity: " + weatherData.main.humidity);
@@ -116,4 +119,5 @@ submitBtn.on("click", function (event) {
     citySearch.val("");
 });
 
+getData('orlando')
 displayCities();
