@@ -25,24 +25,49 @@
             </h1>
         </header>
 
-        <main class="container ms-1">
+        <main class="container">
+            <section class="row">
+                <!-- left Sidebar to search and view recent cities in local storage -->
+                <article class="col-md-3">
+                    <aside id="search" class="d-flex flex-column my-1">
+                        <h2>Search for a City:</h2>
+                        <input
+                            id="citySearch"
+                            type="text"
+                            class="my-1"
+                            placeholder="Orlando"
+                        />
+                        <div class="d-flex flex-column">
+                            <button
+                                id="searchBtn"
+                                type="button"
+                                class="btn btn-primary mt-1"
+                            >
+                                Search
+                            </button>
+                        </div>
+                        <hr />
+                    </aside>
+                    <aside id="history" class="d-flex flex-column"></aside>
+                </article>
+                <!-- END -->
 
-          <!-- left Sidebar to search and view recent cities in local storage -->
-            <section>
-                <aside id="search" class="col-md-3 my-1">
-                    <h2 >Search for a City:</h2>
-                    <input id="city" type="text" class="form-control my-1" placeholder="Orlando"/>
-                    <div class="d-grid gap-2">
-                        <button id="searchBtn" type="button" class="btn btn-primary mt-1">Search</button>
+                <!-- Forecast -->
+                <article class="col-md-9">
+                    <div id="todayWeather" class="border border-dark">
+                        <h2 id="nameOfCity" class="">hello world</h2>
                     </div>
-                    <hr>
-                </aside>
-                <aside id="history" class="col-md-3 gap-2 d-grid">
-                    
-                </aside>
+
+                    <div id="" class="d-flex justify-content-evenly">
+                        <div class="card">small world</div>
+                        <div class="card">small world</div>
+                        <div class="card">small world</div>
+                        <div class="card">small world</div>
+                        <div class="card">small world</div>
+                    </div>
+                </article>
+                <!-- END -->
             </section>
-
-
         </main>
 
         <!-- ========================== Scripts ============================= -->
