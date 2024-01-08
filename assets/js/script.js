@@ -12,11 +12,6 @@ let weatherIcon = $("#weatherIcon")
 //=============================== Global Variables ===================================//
 
 //================================ Main function ====================================//
-const getData = async (city) => {
-    const coordinates = await getGeoCode(city);
-    forecast(coordinates);
-    fiveDay(coordinates);
-};
 
 //========== Get lon and Lat from city  =========//
 const getGeoCode = async (aCity) => {
@@ -29,34 +24,34 @@ const getGeoCode = async (aCity) => {
     let lat = geoData[0].lat;
     let lon = geoData[0].lon;
 
-    return [lat, lon];
+    forecast (lat, lon);
+    fiveDay (lat, lon)
 };
 // END - getGeoCode //
 
 //========== Get today's weather and append it page =========//
-const forecast = async (coordinates) => {
+const forecast = async (lat, lon) => {
     let weatherResponse = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${coordinates[0]}&lon=${coordinates[1]}&units=imperial&appid=28a50b02ae4b700f3cf73b5f494e201a`
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=28a50b02ae4b700f3cf73b5f494e201a`
     );
     let weatherData = await weatherResponse.json();
 
+    console.log(weatherData);
+
     nameOfCity.text(weatherData.name);
-    let icon = `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`;
-    weatherIcon.attr("src", icon);
+    weatherIcon.attr("src", `https://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`);
     todayTemp.text("Temp: " + weatherData.main.temp);
     todayWind.text("Wind: " + weatherData.wind.speed);
     todayHumidity.text("Humidity: " + weatherData.main.humidity);
 
     console.log(weatherData);
-
-    console.log(weatherData.weather.icon); // TODO: remove this at the end
 };
 // END - forecast
 
 //========== Get 5 day forecast and append it page =========//
-const fiveDay = async (coordinates) => {
+const fiveDay = async (lat, lon) => {
     let fiveDayResponse = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?lat=${coordinates[0]}&lon=${coordinates[1]}&units=imperial&appid=28a50b02ae4b700f3cf73b5f494e201a`
+        `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=28a50b02ae4b700f3cf73b5f494e201a`
     );
 
     let fiveDayData = await fiveDayResponse.json();
@@ -86,7 +81,7 @@ const displayCities = () => {
                 `<button type="button" class="btn btn-secondary mt-1"> ${city} </button>`
             );
             listCities.on("click", () => {
-                getData(city);
+                getGeoCode(city);
                 console.log("recent searched - " + city); // TODO: remove this at the end
             });
             history.append(listCities);
@@ -111,13 +106,13 @@ const addToRecentSearches = () => {
 // END - addToRecentSearches //
 
 //===== Handler =====//
-submitBtn.on("click", function (event) {
-    event.preventDefault();
+submitBtn.on("click",(event) => {
+    event.preventDefault(event);
     // Get the value from the input section from html
-    getData(citySearch.val());
+    getGeoCode(citySearch.val());
     addToRecentSearches();
     citySearch.val("");
 });
 
-getData('orlando')
+getGeoCode('orlando')
 displayCities();
