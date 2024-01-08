@@ -3,6 +3,10 @@
 let citySearch = $("#citySearch");
 let submitBtn = $("#searchBtn");
 let history = $("#history");
+let nameOfCity = $("#nameOfCity")
+let todayTemp = $("#temp");
+let todayWind = $("#wind");
+let todayHumidity = $("#humidity");
 
 
 //=============================== Global Variables ===================================//
@@ -25,7 +29,14 @@ const getGeoCodeAndForecast = async (aCity) => {
     );
     let weatherData = await weatherResponse.json();
 
-    console.log("Today's forecast for - " + weatherData.name);
+        nameOfCity.text(weatherData.name);
+        todayTemp.text(weatherData.main.temp)
+        todayWind.text(weatherData.wind.speed)
+        todayHumidity.text(weatherData.main.humidity)
+
+
+
+    console.log(weatherData);
 
     let fiveDayResponse = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=28a50b02ae4b700f3cf73b5f494e201a`
@@ -70,7 +81,7 @@ const addToRecentSearches = () => {
     let addToStoredCities = JSON.parse(localStorage.getItem("cities"));
     if (!Array.isArray(addToStoredCities)) {
         addToStoredCities = [];
-    } else if (addToStoredCities.length > 20) {
+    } else if (addToStoredCities.length > 9) {
         addToStoredCities.pop();
     }
 
