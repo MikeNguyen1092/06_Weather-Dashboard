@@ -1,96 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Weather Forecast</title>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Weather Forecast</title>
 
-        <!-- ===== Bootstraps ===== -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-            crossorigin="anonymous"
-        />
+		<!-- ===== Bootstraps ===== -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous" />
 
-        <!-- ===== Local CSS ===== -->
-        <link rel="stylesheet" href="./assets/css/reset.css" />
-        <link rel="stylesheet" href="./assets/css/style.css" />
-    </head>
+		<!-- ===== Local CSS ===== -->
+		<link rel="stylesheet" href="./assets/css/reset.css" />
+		<link rel="stylesheet" href="./assets/css/style.css" />
+	</head>
 
-    <body>
-        <header>
-            <h1
-                class="d-flex justify-content-center bg-custom bg-gradient text-light py-3"
-            >
-                Weather Dashboard
-            </h1>
-        </header>
+	<body>
+		<header>
+			<h1 class="d-flex justify-content-center bg-custom bg-gradient text-light py-3">Weather Dashboard</h1>
+		</header>
 
-        <main class="container-fluid px-5">
-            <section class="row">
-                <!-- left Sidebar to search and view recent cities in local storage -->
-                <article class="col-md-2">
-                    <aside id="search" class="d-flex flex-column my-1">
-                        <h2>Search for a City:</h2>
-                        <input
-                            id="citySearch"
-                            type="text"
-                            class="form-control my-1"
-                            placeholder="Orlando"
-                        />
-                        <div class="d-flex flex-column">
-                            <button
-                                id="searchBtn"
-                                type="button"
-                                class="btn btn-primary mt-1"
-                            >
-                                Search
-                            </button>
-                            <button
-                            id="clearBtn"
-                            type="button"
-                            class="btn btn-primary mt-1"
-                        >
-                            Clear History
-                        </button>
-                        </div>
-                        <hr />
-                    </aside>
-                    <aside id="history" class="d-flex flex-column"></aside>
-                </article>
-                <!-- END first article-->
+		<main class="container-fluid px-5">
+			<section class="row">
+				<!-- left Sidebar -->
+				<article class="col-md-2">
+					<!-- Search for city and clear button -->
+					<aside id="search" class="d-flex flex-column my-1">
+						<h2>Search for a City:</h2>
+						<input id="citySearch" type="text" class="form-control my-1" placeholder="Orlando" />
+						<div class="d-flex flex-column">
+							<button id="searchBtn" type="button" class="btn btn-primary mt-1">Search</button>
+							<button id="clearBtn" type="button" class="btn btn-primary mt-1">Clear History</button>
+						</div>
+						<hr />
+					</aside>
 
-                <!-- Forecast -->
-                <article class="col-md-10 my-1">
-                    <div
-                        id="weather"
-                        class="border border-dark rounded bg-light-subtle"
-                    ></div>
-                    <h2 class="my-2 stronger">Forecast</h2>
-                    <!--  -->
-                    <div
-                        id="fiveDayCardContainer"
-                        class="d-flex justify-content-between"
-                    ></div>
-                </article>
-                <!-- END second article -->
-            </section>
-        </main>
+					<!-- Recent History from local storage -->
+					<aside id="history" class="d-flex flex-column"></aside>
+				</article>
+				<!-- END first article-->
 
-        <!-- ========================== Scripts ============================= -->
+				<!-- Weather forecast -->
+				<article class="col-md-10 my-1">
+					<!-- Current -->
+					<div id="weather" class="border border-dark rounded bg-light-subtle"></div>
 
-        <!-- ====== JQuery ===== -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+					<!-- 5 Day Forecast -->
+					<h2 class="my-2 stronger">Forecast</h2>
+					<div id="fiveDayCardContainer" class="d-flex justify-content-between"></div>
+				</article>
+				<!-- END second article -->
+			</section>
+		</main>
 
-        <!-- ====== Dayjs ====== -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
-            integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
-            crossorigin="anonymous"
-        ></script>
+		<!-- ========================== Scripts ============================= -->
 
-        <!-- ====== Local script ====== -->
-        <script src="./assets/js/script.js"></script>
-    </body>
+		<!-- ========= JQuery ========= -->
+		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+		<!-- ========= Dayjs ========== -->
+		<script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js" integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
+
+		<!-- ====== Local script ====== -->
+		<script src="./assets/js/script.js"></script>
+	</body>
 </html>
