@@ -8,7 +8,7 @@ const clearBtn = $("#clearBtn");
 
 //================================== Functions ======================================//
 
-//========== Get lon and Lat from city  =========//
+//========== Get lon and at from city  =========//
 
 // Using async/await to wait for a response before moving to next line
 const getGeoCode = async (aCity) => {
@@ -36,7 +36,7 @@ const getGeoCode = async (aCity) => {
 };
 // END - getGeoCode //
 
-//========== Get today's weather and append it page =========//
+//========== Get today's weather and append it =========//
 const forecast = async (lat, lon) => {
 	weather.empty();
 	const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=28a50b02ae4b700f3cf73b5f494e201a`);
@@ -61,7 +61,7 @@ const forecast = async (lat, lon) => {
 };
 // END - forecast
 
-//========== Get 5 day forecast and append it page =========//
+//========== Get 5 day forecast and append it =========//
 const fiveDay = async (lat, lon) => {
 	// clears forecast before writing new ones
 	cardContainer.empty();
@@ -95,7 +95,7 @@ const fiveDay = async (lat, lon) => {
 };
 // END - fiveDay
 
-//========== Display Cities on page function  =========//
+//========== Display Cities from local storage  =========//
 const displayCities = () => {
 	// Clears the previous buttons before calling localStorage to re-add them
 	history.empty();
@@ -114,7 +114,7 @@ const displayCities = () => {
 };
 // END - displayCities
 
-//========== Add To Recent Searches function =========//
+//========== Add To Recent Searches =========//
 const addToRecentSearches = () => {
 	// Get array in local storage
 	let addToStoredCities = JSON.parse(localStorage.getItem("cities"));
@@ -135,13 +135,23 @@ const addToRecentSearches = () => {
 };
 // END - addToRecentSearches //
 
-//=============== Handler ===============//
+//============== Handler ===============//
 submitBtn.on("click", (event) => {
 	event.preventDefault(event);
 	// Get the value from the input section from html
 	getGeoCode(citySearch.val());
 	addToRecentSearches();
 	citySearch.val("");
+});
+
+//===== Press 'Enter' on the input field to search ====//
+citySearch.on("keydown", (event) =>{
+	if (event.key === "Enter") {
+		event.preventDefault();
+		getGeoCode(citySearch.val());
+		addToRecentSearches();
+		citySearch.val("");
+	}
 });
 
 //===== Clear history ======//
@@ -151,6 +161,8 @@ clearBtn.on("click", (event) => {
 	history.empty();
 });
 
-// init function
+
+
+// Init
 getGeoCode("orlando");
 displayCities();
