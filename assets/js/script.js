@@ -4,6 +4,7 @@ const submitBtn = $("#searchBtn");
 const history = $("#history");
 const cardContainer = $("#fiveDayCardContainer");
 const weather = $("#weather");
+const clearBtn = $("#clearBtn");
 
 //================================ Functions ====================================//
 
@@ -129,7 +130,7 @@ const displayCities = () => {
 
 //========== Add To Recent Searches function =========//
 const addToRecentSearches = () => {
-    const addToStoredCities = JSON.parse(localStorage.getItem("cities"));
+    let addToStoredCities = JSON.parse(localStorage.getItem("cities"));
     if (!Array.isArray(addToStoredCities)) {
         addToStoredCities = [];
     } else if (addToStoredCities.length > 9) {
@@ -150,6 +151,13 @@ submitBtn.on("click", (event) => {
     addToRecentSearches();
     citySearch.val("");
 });
+
+//===== Clear history ======//
+clearBtn.on("click", (event) => {
+    event.preventDefault(event);
+    localStorage.removeItem("cities");
+    history.empty();
+})
 
 // init function
 getGeoCode("orlando");
