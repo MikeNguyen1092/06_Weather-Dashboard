@@ -36,6 +36,8 @@ const forecast = async (lat, lon) => {
     );
     let weatherData = await weatherResponse.json();
 
+    console.log(weatherData);
+
     nameOfCity.text(weatherData.name + " " + dayjs().format("(MM/DD/YYYY)"));
     weatherIcon.attr(
         "src",
@@ -55,6 +57,7 @@ const fiveDay = async (lat, lon) => {
     );
 
     let fiveDayData = await fiveDayResponse.json();
+    console.log(fiveDayData.list);
 
     // Filter the list to keep only data for 12:00 hr
     let hour12 = fiveDayData.list.filter((list) => list.dt_txt.includes("12:00"));
@@ -62,13 +65,17 @@ const fiveDay = async (lat, lon) => {
     hour12.forEach((list) => {
         const date = list.dt_txt.split(" ")[0].substring(5);
         const temperature = list.main.temp;
-        const icon = list.weather[0].icon
+        const icon = list.weather[0].icon;
+        const wind = list.wind.speed;
+        const humidity = list.main.humidity
 
         // Create a new card for each day
         let card = $(`<div class="card">
                         <p>${date}</p>
-                        <img src= ${`https://openweathermap.org/img/wn/${icon}.png`}
+                        <img src= ${`https://openweathermap.org/img/wn/${icon}.png`}>
                         <p>Temp: ${temperature.toFixed(2)}°F</p>
+                        <p>Wind: ${wind} MPH
+                        <p>Humidity: ${humidity}
                       </div>`);
 
         $('#cardContainer').append(card);
