@@ -11,28 +11,31 @@ const weather = $("#weather");
 
 // Using async/await to wait for a response before moving to next line
 const getGeoCode = async (aCity) => {
-
-    // try/catch to catch any errors
+    // Use try/catch to catch any errors
     try {
-    const geoResponse = await fetch(
-        `http://api.openweathermap.org/geo/1.0/direct?q=${aCity}&limit=1&appid=28a50b02ae4b700f3cf73b5f494e201a`
-    );
+        const geoResponse = await fetch(
+            `http://api.openweathermap.org/geo/1.0/direct?q=${aCity}&limit=1&appid=28a50b02ae4b700f3cf73b5f494e201a`
+        );
 
-    const geoData = await geoResponse.json();
+        const geoData = await geoResponse.json();
 
-    const lat = geoData[0].lat;
-    const lon = geoData[0].lon;
+        const lat = geoData[0].lat;
+        const lon = geoData[0].lon;
 
-    // Once got the lon and lat, run both functions at once (they don't need to wait on each other)
-    forecast(lat, lon);
-    fiveDay(lat, lon);
+        // Once got the lon and lat, run both functions at once (they don't need to wait on each other)
+        forecast(lat, lon);
+        fiveDay(lat, lon);
 
-    //if there is an error run this. 
+        //if there is an error run this.
     } catch (error) {
         weather.empty();
         cardContainer.empty();
-        weather.append($(`<h1>We could not find this city. Please try again</h1>`))
-        setTimeout(() => {getGeoCode('orlando')},3000)
+        weather.append(
+            $(`<h1>We could not find this city. Please try again</h1>`)
+        );
+        setTimeout(() => {
+            getGeoCode("orlando");
+            }, 3000);
     }
 };
 // END - getGeoCode //
@@ -89,7 +92,8 @@ const fiveDay = async (lat, lon) => {
         const humidity = list.main.humidity;
 
         // Create a new card for each day
-        const card = $(`<div class="card bg-dark-subtle bg-gradient col-md-2 box-shadow">
+        const card =
+            $(`<div class="card bg-dark-subtle bg-gradient col-md-2 box-shadow">
                         <h2 class="m-2">${date}-${dayjs().format("YYYY")}</h2>
                         <img src= ${`https://openweathermap.org/img/wn/${icon}.png`}>
                         <p class="ms-2">Temp: ${temperature.toFixed(2)}°F</p>
@@ -100,7 +104,6 @@ const fiveDay = async (lat, lon) => {
         cardContainer.append(card);
     });
 };
-
 // END - fiveDay
 
 //========== Display Cities on page function  =========//
