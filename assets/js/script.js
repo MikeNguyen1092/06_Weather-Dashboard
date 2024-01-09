@@ -93,9 +93,9 @@ const fiveDay = async (lat, lon) => {
 
         // Create a new card for each day
         const card =
-            $(`<div class="card bg-dark-subtle bg-gradient col-md-2 box-shadow">
+            $(`<div class="bg-dark-subtle bg-gradient col-md-2 box-shadow rounded">
                         <h2 class="m-2">${date}-${dayjs().format("YYYY")}</h2>
-                        <img src= ${`https://openweathermap.org/img/wn/${icon}.png`}>
+                        <img class="weather-icon"src= ${`https://openweathermap.org/img/wn/${icon}@2x.png`}>
                         <p class="ms-2">Temp: ${temperature.toFixed(2)}°F</p>
                         <p class="ms-2">Wind: ${wind} MPH</p>
                         <p class="ms-2">Humidity: ${humidity}%</p>
