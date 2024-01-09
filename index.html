@@ -30,7 +30,7 @@
         <main class="container-fluid px-5">
             <section class="row">
                 <!-- left Sidebar to search and view recent cities in local storage -->
-                <article class="col-md-3">
+                <article class="col-md-2">
                     <aside id="search" class="d-flex flex-column my-1">
                         <h2>Search for a City:</h2>
                         <input
@@ -55,25 +55,19 @@
                 <!-- END first article-->
 
                 <!-- Forecast -->
-                <article class="col-md-9 my-1">
+                <article class="col-md-10 my-1">
                     <div
-                        id="todayWeather"
-                        class="border border-dark bg-light-subtle"
-                    >
-                        <div class="d-flex align-items-center">
-                            <h2 id="nameOfCity"></h2>
-                            <img id="weatherIcon" alt="Weather Icon" />
-                        </div>
-                        <p id="temp"></p>
-                        <p id="wind"></p>
-                        <p id="humidity"></p>
-                    </div>
-
-                    <div id="cardContainer" class="d-flex justify-content-evenly">
-                    </div>
+                        id="weather"
+                        class="border border-dark rounded bg-light-subtle"
+                    ></div>
+                    <h2 class="my-2 stronger">Forecast</h2>
+                    <!--  -->
+                    <div
+                        id="fiveDayCardContainer"
+                        class="d-flex justify-content-between"
+                    ></div>
                 </article>
                 <!-- END second article -->
-
             </section>
         </main>
 

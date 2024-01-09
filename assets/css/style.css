@@ -2,7 +2,20 @@ h2 {
     font-size: 24px;
 }
 
+p {
+    font-size: 18px;
+}
+
 .bg-custom {
     background-color: rgb(0, 17, 130);
 
 }
+
+.box-shadow {
+    box-shadow: 0px 0px 1px 1px black;
+}
+
+.stronger {
+    font-weight: 800
+}
+
