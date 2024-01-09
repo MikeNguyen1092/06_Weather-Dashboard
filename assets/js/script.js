@@ -15,7 +15,7 @@ const getGeoCode = async (aCity) => {
     // Use try/catch to catch any errors
     try {
         const geoResponse = await fetch(
-            `http://api.openweathermap.org/geo/1.0/direct?q=${aCity}&limit=1&appid=28a50b02ae4b700f3cf73b5f494e201a`
+            `https://api.openweathermap.org/geo/1.0/direct?q=${aCity}&limit=1&appid=28a50b02ae4b700f3cf73b5f494e201a`
         );
 
         const geoData = await geoResponse.json();
