@@ -71,15 +71,15 @@ const fiveDay = async (lat, lon) => {
 	const fiveDayData = await fiveDayResponse.json();
 
 	// Filter the list to keep only data for 15:00 hr
-	const hour12 = fiveDayData.list.filter((list) => list.dt_txt.includes("15:00"));
+	const hour15 = fiveDayData.list.filter((hours) => hours.dt_txt.includes("15:00"));
 
 	// loops through each `list`, get the necessary values and append it to page
-	hour12.forEach((list) => {
-		const date = list.dt_txt.split(" ")[0].substring(5);
-		const temperature = list.main.temp;
-		const icon = list.weather[0].icon;
-		const wind = list.wind.speed;
-		const humidity = list.main.humidity;
+	hour15.forEach((index) => {
+		const date = index.dt_txt.split(" ")[0].substring(5);
+		const temperature = index.main.temp;
+		const icon = index.weather[0].icon;
+		const wind = index.wind.speed;
+		const humidity = index.main.humidity;
 
 		// Create a new card for each day and append it page
 		const card = $(`<div class="bg-dark-subtle bg-gradient col-md-2 box-shadow rounded">
